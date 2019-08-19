@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" />
+    <title>Scrape</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <h1><strong>GameSpot Scraper</strong></h1>
+        <form class="form-inline">
+            <button id="scrape" class="btn btn-secondary" type="submit">Scrape</button>
+            <button id="clear" class="btn btn-secondary" type="submit">Clear Articles</button>
+        </form>
+    </nav>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="background-img"></div>
+    </div>
+    <div id="wrapper">
+        <h1><strong>Articles</strong></h1>
+        <div id="articles"></div>
+        <div id="notes"></div>
+    </div>
+</body>
+
+</html>

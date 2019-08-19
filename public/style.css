@@ -1,0 +1,29 @@
+h1 {
+    color: #fc6714;
+}
+.btn {
+    background-color: #fc6714;
+    color: #343a40;
+}
+.jumbotron {
+    padding: 0;
+}
+.background-img {
+    height: 600px;
+    width:100%;
+    background-image: url(imgs/doometernal.png);
+    background-size: cover;
+}
+body {
+    background-color : #adb0b3;
+    width: 100%;
+}
+.card-header {
+    background-color: #fc6714;
+}
+.card-body {
+    background-color: #adb0b3 !important;
+}
+a {
+    color: #343a40;
+}

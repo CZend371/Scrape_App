@@ -1,6 +1,6 @@
 var express = require("express");
+// var logger = require("morgan");
 var mongoose = require("mongoose");
-var exphbs = require("express-handlebars");
 
 // Our scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
@@ -17,9 +17,9 @@ var PORT = 3000;
 var app = express();
 
 // Configure middleware
-app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
 
+// Use morgan logger for logging requests
+// app.use(logger("dev"));
 // Parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -34,18 +34,21 @@ mongoose.connect("mongodb://localhost/scrape-app", { useNewUrlParser: true });
 // A GET route for scraping the echoJS website
 app.get("/scrape", function (req, res) {
     // First, we grab the body of the html with axios
-    axios.get("https://www.ign.com").then(function (response) {
+    axios.get("https://www.gamespot.com").then(function (response) {
         // Then, we load that into cheerio and save it to $ for a shorthand selector
         var $ = cheerio.load(response.data);
 
-        // Now, we grab every h2 within an article tag, and do the following:
         $("article").each(function (i, element) {
             // Save an empty result object
             var result = {};
 
             // Add the text and href of every link, and save them as properties of the result object
             result.title = $(this)
-                .children("a")
+                .find("h3")
+                .text();
+            result.summary = $(this)
+                // issue is with the string passed in children...(for validation error)
+                .find("p")
                 .text();
             result.link = $(this)
                 .children("a")
