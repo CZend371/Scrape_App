@@ -1,30 +1,63 @@
 $(document).ready(function () {
-    $("#scrape").click(function (e) {
-        e.preventDefault();
-        // Grab the articles as a json
-        $.getJSON("/articles", function (data) {
-            // For each one
-            for (var i = 0; i < data.length; i++) {
-                var card = $("<div class='card'/>");
-                var cardHeader = $("<div class='card-header'/>");
-                var cardBody = $("<div class='card-body'/>");
-                $("#articles").append(card);
-                $(card).append(cardHeader);
-                $(cardHeader).append($("<a href='https://www.gamespot.com" + data[i].link + "'>" + data[i].title + "</a>"));
-                $(card).append(cardBody);
-                $(cardBody).append(data[i].summary);
-            }
-        })
-    });
+    function scrapePage() {
+        $("#scrape").click(function (e) {
+            e.preventDefault();
+            // Grab the articles as a json
+            $.get("/articles").then(function (data) {
+                // For each one
+                for (var i = 0; i < data.length; i++) {
+                    var card = $("<div class='card'/>");
+                    var cardHeader = $("<div class='card-header'" + "data-id=" + data[i]._id + "/>");
+                    var saveButton = $("<button id='save-note' class='btn btn-success' type='submit'>Save Note</button>");
+                    var cardBody = $("<div class='card-body'/>");
+                    $("#articles").append(card);
+                    $(card).append(cardHeader);
+                    $(cardHeader).append($("<a href='https://www.gamespot.com" + data[i].link + "'>" + data[i].title + "</a>"));
+                    $(cardHeader).append(saveButton);
+                    $(card).append(cardBody);
+                    $(cardBody).append(data[i].summary);
+                }
+            })
+        });
+    };
+    scrapePage();
 
-    // $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].summary + "<br />" + data[i].link + "</p>");
-    $("#clear").click(function (e) {
-        e.preventDefault();
-        $("#articles").empty();
-    })
+    function clearArticles() {
+        $("#clear").click(function (e) {
+            e.preventDefault();
+            $("#articles").empty();
+        })
+    };
+    clearArticles();
+
+    // function saveArticle() {
+    //     $("#save-article").click(function () {
+    //         // Grab the id associated with the article from the submit button
+    //         var thisId = $(this).attr("data-id");
+
+    //         // Run a POST request to change the note, using what's entered in the inputs
+    //         $.ajax({
+    //             method: "POST",
+    //             url: "/articles/saved" + thisId,
+    //             data: {
+    //                 // Value taken from title input
+    //                 title: $(this.title).val(),
+    //                 // Value taken from note textarea
+    //                 summary: $(this.summary).val(),
+    //                 link: $(this.link).val(),
+    //             }
+    //         })
+    //             // With that done
+    //             .then(function (data) {
+    //                 // Log the response
+    //                 console.log(data);
+    //             });
+    //     })
+    // };
+    // saveArticle();
 
     // Whenever someone clicks a p tag
-    $(document).on("click", "p", function () {
+    $("#save-note").click(function () {
         // Empty the notes from the note section
         $("#notes").empty();
         // Save the id from the p tag
