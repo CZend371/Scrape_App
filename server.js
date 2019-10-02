@@ -26,8 +26,11 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/scrape-app",
-    { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/scrapeapp",
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
 
 const connection = mongoose.connection;
 connection.once("open", () => {
