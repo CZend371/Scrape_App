@@ -4,6 +4,7 @@ $(document).ready(function () {
             e.preventDefault();
             // Grab the articles as a json
             $.get("/articles").then(function (data) {
+                console.log("scrape button clicked");
                 // For each one
                 for (var i = 0; i < data.length; i++) {
                     var card = $("<div class='card'/>");

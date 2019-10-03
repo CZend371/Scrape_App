@@ -6,11 +6,10 @@ var mongoose = require("mongoose");
 // It works on the client and on the server
 var axios = require("axios");
 var cheerio = require("cheerio");
+const PORT = process.env.PORT || 3001;
 
 // Require all models
 var db = require("./models");
-
-var PORT = 3000;
 
 // Initialize Express
 var app = express();
@@ -26,11 +25,10 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/scrapeapp",
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/scrapeapp", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 
 const connection = mongoose.connection;
 connection.once("open", () => {
@@ -149,5 +147,5 @@ app.post("/articles/:id", function (req, res) {
 
 // Start the server
 app.listen(PORT, function () {
-    console.log("App running on port " + PORT + "!");
+    console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
