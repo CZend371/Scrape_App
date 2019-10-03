@@ -31,6 +31,10 @@ a {
     background-color: #28a745;
     float: right;
 }
+#save-article {
+    background-color: #28a745;
+    float: right;
+}
 #notes {
     float: right;
     width: 30%;

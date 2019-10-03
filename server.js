@@ -74,11 +74,13 @@ app.get("/scrape", function (req, res) {
 
         // Send a message to the client
         res.send("Scrape Complete");
+        console.log("scrape function");
     });
 });
 
 // Route for getting all Articles from the db
 app.get("/articles", function (req, res) {
+    console.log("get article function");
     // Grab every document in the Articles collection
     db.Article.find({})
         .then(function (dbArticle) {
@@ -91,6 +93,7 @@ app.get("/articles", function (req, res) {
         });
 });
 app.post("/articles/saved", function (req, res) {
+    console.log("save article function");
     // Create a new note and pass the req.body to the entry
     db.Article.create(req.body)
         .then(function (dbArticle) {

@@ -9,7 +9,7 @@ $(document).ready(function () {
                 for (var i = 0; i < data.length; i++) {
                     var card = $("<div class='card'/>");
                     var cardHeader = $("<div class='card-header'" + "data-id=" + data[i]._id + "/>");
-                    var saveButton = $("<button id='save-note' class='btn btn-success' type='submit'>Save Note</button>");
+                    var saveButton = $("<button id='save-article' class='btn btn-success' type='submit'>Save article</button>");
                     var cardBody = $("<div class='card-body'/>");
                     $("#articles").append(card);
                     $(card).append(cardHeader);
@@ -31,34 +31,36 @@ $(document).ready(function () {
     };
     clearArticles();
 
-    // function saveArticle() {
-    //     $("#save-article").click(function () {
-    //         // Grab the id associated with the article from the submit button
-    //         var thisId = $(this).attr("data-id");
+    function saveArticle() {
+        $("#save-article").click(function () {
+            console.log("save article button");
+            // Grab the id associated with the article from the submit button
+            var thisId = $(this).attr("data-id");
 
-    //         // Run a POST request to change the note, using what's entered in the inputs
-    //         $.ajax({
-    //             method: "POST",
-    //             url: "/articles/saved" + thisId,
-    //             data: {
-    //                 // Value taken from title input
-    //                 title: $(this.title).val(),
-    //                 // Value taken from note textarea
-    //                 summary: $(this.summary).val(),
-    //                 link: $(this.link).val(),
-    //             }
-    //         })
-    //             // With that done
-    //             .then(function (data) {
-    //                 // Log the response
-    //                 console.log(data);
-    //             });
-    //     })
-    // };
-    // saveArticle();
+            // Run a POST request to change the note, using what's entered in the inputs
+            $.ajax({
+                method: "POST",
+                url: "/articles/saved" + thisId,
+                data: {
+                    // Value taken from title input
+                    title: $(this.title).val(),
+                    // Value taken from note textarea
+                    summary: $(this.summary).val(),
+                    link: $(this.link).val(),
+                }
+            })
+                // With that done
+                .then(function (data) {
+                    // Log the response
+                    console.log(data);
+                });
+        })
+    };
+    saveArticle();
 
     // Whenever someone clicks a p tag
     $("#save-note").click(function () {
+        console.log("save note button");
         // Empty the notes from the note section
         $("#notes").empty();
         // Save the id from the p tag
@@ -93,13 +95,14 @@ $(document).ready(function () {
 
     // When you click the savenote button
     $(document).on("click", "#savenote", function () {
+        console.log("save button clicked");
         // Grab the id associated with the article from the submit button
         var thisId = $(this).attr("data-id");
 
         // Run a POST request to change the note, using what's entered in the inputs
         $.ajax({
             method: "POST",
-            url: "/articles/" + thisId,
+            url: "/saved/" + thisId,
             data: {
                 // Value taken from title input
                 title: $("#titleinput").val(),
